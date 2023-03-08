@@ -1,0 +1,30 @@
+{
+  "name": "cifi_token",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "@truffle/hdwallet-provider": "^2.1.7",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^3.1.0",
+    "dotenv": "^16.0.3",
+    "truffle": "^5.7.9",
+    "truffle-flattener": "^1.6.0",
+    "truffle-hdwallet-provider-privkey": "^0.3.0",
+    "web3": "^1.8.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "prettier-plugin-solidity": "^1.0.0-beta.3"
+  }
+}
