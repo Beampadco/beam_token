@@ -9,7 +9,7 @@ contract BullionTribeClub is ERC721, Ownable {
 
   uint256 public MAX_TRIBES = 10000;
 
-  string public nftBaseURI = "";
+  string public nftBaseURI;
 
   uint public totalSupply;
 
