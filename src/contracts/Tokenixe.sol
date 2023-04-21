@@ -6,12 +6,12 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract Beam_Token is ERC20, AccessControl, Pausable {
+contract Tokenixe is ERC20, AccessControl, Pausable {
   using SafeMath for uint256;
 
   uint256 internal _maxAmountMintable = 500_000_000e18;
 
-  constructor() ERC20("Beam Token", "BEAM") {
+  constructor() ERC20("Tokenixe", "NXE") {
     _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
   }
 
