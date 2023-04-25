@@ -1822,16 +1822,31 @@ contract BullionTribe is ERC721, Ownable {
 
   uint public totalSupply;
 
-  constructor() ERC721("Bullion Tribe", "TRIBE") {}
+  mapping(address => bool) minters;
+
+  constructor(string memory name, string memory symbol) ERC721(name, symbol) {}
+
+  modifier onlyMinter() {
+    require(minters[_msgSender()], "BullionTribe: caller is not a minter");
+    _;
+  }
 
   function setBaseURI(string memory baseURI) public onlyOwner {
     _setBaseURI(baseURI);
   }
 
+  function addMinter(address user) public onlyOwner {
+    minters[user] = true;
+  }
+
+  function removeMinter(address user) public onlyOwner {
+    minters[user] = false;
+  }
+
   function setMaxTribes(uint256 maxNftSupply) public onlyOwner {
     require(
       totalSupply <= MAX_TRIBES,
-      "MAX_TRIBES should be greater than TotalSupply"
+      "BullionTribe: MAX_TRIBES should be greater than TotalSupply"
     );
     MAX_TRIBES = maxNftSupply;
   }
@@ -1845,17 +1860,30 @@ contract BullionTribe is ERC721, Ownable {
   }
 
   /**
-   * Mints Bullion Tribes
+   * Mints bulk Bullion Tribes
    */
-  function mintTribe(uint256 numberOfTokens) public {
+  function mintBulk(uint256 numberOfTokens, address wallet) public onlyMinter {
     require(
       totalSupply.add(numberOfTokens) <= MAX_TRIBES,
-      "Mint would exceed max supply of Tribes"
+      "BullionTribe: Mint would exceed max supply of Tribes"
     );
 
     for (uint i = 1; i <= numberOfTokens; i++) {
-      _safeMint(msg.sender, totalSupply.add(i));
+      _safeMint(wallet, totalSupply.add(i));
     }
     totalSupply += numberOfTokens;
+  }
+
+  /**
+   * Mints a single Bullion Tribe with a tokne id
+   */
+  function mint(address wallet) public onlyMinter {
+    require(
+      totalSupply.add(1) <= MAX_TRIBES,
+      "BullionTribe: Mint would exceed max supply of Tribes"
+    );
+
+    _safeMint(wallet, totalSupply.add(1));
+    totalSupply++;
   }
 }
